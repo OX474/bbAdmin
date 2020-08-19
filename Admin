@@ -1,0 +1,318 @@
+local character = game.Players.LocalPlayer.Character
+function ws(int)
+   character.Humanoid.WalkSpeed = int
+end
+function walkspeed(int)
+   ws(int)
+end
+function die()
+   character.Humanoid.Health = 0 
+end
+function suicide()
+   die() 
+end
+function teleport(character)
+    game.Players.LocalPlayer.Character:MoveTo(character:GetBoundingBox().Position)
+end
+function tpto(plr)
+local name = plr
+for _, player in ipairs(game.Players:GetPlayers()) do
+    if player.Name:lower():sub(1, name:len()) == name:lower() then
+        teleport(player.Character)
+        break
+    end
+end
+end
+function chat(str)
+   local bbarg1 = str
+   local bbarg2 = "All"
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(bbarg1, bbarg2)
+end
+function say(str)
+   chat(str) 
+end
+function dex()
+   loadstring(game:GetObjects("rbxassetid://418957341")[1].Source)()  
+end
+function explorer()
+   dex() 
+end
+function cprint(str)
+   print(str) 
+end
+function cprintspam(str, int)
+_G.PrintSpam = int
+while _G.PrintSpam == 1 do
+   print(str)
+   wait()
+end
+end
+function cwarn(str)
+   warn(str)
+end
+function cwarnspam(str, int)
+_G.WarnSpam = int
+while _G.WarnSpam == 1 do
+    warn(str)
+    wait()
+end
+end
+function cerror(str)
+   error(str) 
+end
+function jumppower(int)
+  character.Humanoid.JumpPower = int  
+end
+function jp(int)
+   jumppower(int) 
+end
+function setupval(str, str2, val)
+   for i,v in pairs(getgc(true)) do
+    if type(v) == "table" then
+        if rawget(v, str2) then
+           v[str] = val
+        end
+    end
+end 
+end
+function getupvals(spath)
+   local s = require(spath)
+   for i,v in pairs(s) do print(i,v) end
+end
+function getupvalval(str)
+   for i,v in pairs(getgc(true)) do
+    if type(v) == "table" then
+        if rawget(v, str) then
+           print(v[str])
+        end
+    end
+end  
+end
+function setupval2(spath, str, val)
+   local scriptpath = require(spath)
+   scriptpath[str] = val
+end
+function hipheight(int)
+   character.Humanoid.HipHeight = int 
+end
+function hh(int)
+   hipheight(int) 
+end
+function btools()
+local tool1 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+local tool2 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+local tool3 = Instance.new("HopperBin",game.Players.LocalPlayer.Backpack)
+tool1.BinType = "Clone"
+tool2.BinType = "Hammer"
+tool3.BinType = "Grab"  
+end
+function fog(int)
+   game:GetService("Lighting").FogEnd = int 
+end
+function hydroxide()
+   local owner = "Upbolt"
+local branch = "revision"
+ 
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+ 
+webImport("init")
+webImport("ui/main") 
+end
+function rejoin()
+   local id = game.PlaceId
+   game.TeleportService:Teleport(id, game.Players.LocalPlayer)
+end
+function rj()
+   rejoin() 
+end
+function tpgame(int)
+   game.TeleportService:Teleport(int, game.Players.LocalPlayer) 
+end
+function savegame()
+   saveinstance() 
+end
+function noclip()
+noclip = false
+game:GetService('RunService').Stepped:connect(function()
+if noclip then
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+end
+end)
+plr = game.Players.LocalPlayer
+mouse = plr:GetMouse()
+mouse.KeyDown:connect(function(key)
+ 
+if key == "e" then
+noclip = not noclip
+game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+end
+end)
+end
+function fly()
+ repeat wait()
+   until game.Players.LocalPlayer and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:findFirstChild("Torso") and game.Players.LocalPlayer.Character:findFirstChild("Humanoid")
+local mouse = game.Players.LocalPlayer:GetMouse()
+repeat wait() until mouse
+local plr = game.Players.LocalPlayer
+local torso = plr.Character.Torso
+local flying = true
+local deb = true
+local ctrl = {f = 0, b = 0, l = 0, r = 0}
+local lastctrl = {f = 0, b = 0, l = 0, r = 0}
+local maxspeed = 50
+local speed = 0
+ 
+function Fly()
+local bg = Instance.new("BodyGyro", torso)
+bg.P = 9e4
+bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+bg.cframe = torso.CFrame
+local bv = Instance.new("BodyVelocity", torso)
+bv.velocity = Vector3.new(0,0.1,0)
+bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
+repeat wait()
+plr.Character.Humanoid.PlatformStand = true
+if ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0 then
+speed = speed+.5+(speed/maxspeed)
+if speed > maxspeed then
+speed = maxspeed
+end
+elseif not (ctrl.l + ctrl.r ~= 0 or ctrl.f + ctrl.b ~= 0) and speed ~= 0 then
+speed = speed-1
+if speed < 0 then
+speed = 0
+end
+end
+if (ctrl.l + ctrl.r) ~= 0 or (ctrl.f + ctrl.b) ~= 0 then
+bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (ctrl.f+ctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(ctrl.l+ctrl.r,(ctrl.f+ctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+lastctrl = {f = ctrl.f, b = ctrl.b, l = ctrl.l, r = ctrl.r}
+elseif (ctrl.l + ctrl.r) == 0 and (ctrl.f + ctrl.b) == 0 and speed ~= 0 then
+bv.velocity = ((game.Workspace.CurrentCamera.CoordinateFrame.lookVector * (lastctrl.f+lastctrl.b)) + ((game.Workspace.CurrentCamera.CoordinateFrame * CFrame.new(lastctrl.l+lastctrl.r,(lastctrl.f+lastctrl.b)*.2,0).p) - game.Workspace.CurrentCamera.CoordinateFrame.p))*speed
+else
+bv.velocity = Vector3.new(0,0.1,0)
+end
+bg.cframe = game.Workspace.CurrentCamera.CoordinateFrame * CFrame.Angles(-math.rad((ctrl.f+ctrl.b)*50*speed/maxspeed),0,0)
+until not flying
+ctrl = {f = 0, b = 0, l = 0, r = 0}
+lastctrl = {f = 0, b = 0, l = 0, r = 0}
+speed = 0
+bg:Destroy()
+bv:Destroy()
+plr.Character.Humanoid.PlatformStand = false
+end
+mouse.KeyDown:connect(function(key)
+if key:lower() == "f" then
+if flying then flying = false
+else
+flying = true
+Fly()
+end
+elseif key:lower() == "w" then
+ctrl.f = 1
+elseif key:lower() == "s" then
+ctrl.b = -1
+elseif key:lower() == "a" then
+ctrl.l = -1
+elseif key:lower() == "d" then
+ctrl.r = 1
+end
+end)
+mouse.KeyUp:connect(function(key)
+if key:lower() == "w" then
+ctrl.f = 0
+elseif key:lower() == "s" then
+ctrl.b = 0
+elseif key:lower() == "a" then
+ctrl.l = 0
+elseif key:lower() == "d" then
+ctrl.r = 0
+end
+end)
+Fly()    
+end
+function sayspam(str,bool)
+_G.ChatSpam = bool
+while _G.ChatSpam do
+   local bbarg1 = str
+   local bbarg2 = "All"
+   game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(bbarg1, bbarg2) 
+end
+end
+function chatspam(bool)
+    sayspam(bool)
+end
+function camzoom(int, int2)
+   game.Players.LocalPlayer.CameraMinZoomDistance = int
+   game.Players.LocalPlayer.CameraMaxZoomDistance = int2
+end
+function fov(int)
+   game:GetService("Workspace"):WaitForChild("Camera").FieldOfView = int 
+end
+function clearnilinstances()
+for i, v in next, getnilinstances() do
+v:Remove()
+end
+end
+function fullbright()
+   loadstring(game:HttpGet("https://pastebin.com/raw/06iG6YkU", true))()
+end
+function fb()
+   fullbright() 
+end
+function hitbox(str, int, int2, int3)
+game:GetService("Workspace"):WaitForChild(str).Head.Mesh.Scale = Vector3.new(int,int2,int3)
+end
+function fling()
+   loadstring(game:HttpGet('https://pastebin.com/zHxNWgY7', true))()
+end
+function gravity(int)--default 196.2
+   game:GetService("Workspace").Gravity = int
+end
+function sit()
+   character.Humanoid.Sit = true
+end
+function infjump()
+   local Player = game:GetService'Players'.LocalPlayer;
+local UIS = game:GetService'UserInputService';
+ 
+_G.JumpHeight = 50;
+ 
+function Action(Object, Function) if Object ~= nil then Function(Object); end end
+ 
+UIS.InputBegan:connect(function(UserInput)
+    if UserInput.UserInputType == Enum.UserInputType.Keyboard and UserInput.KeyCode == Enum.KeyCode.Space then
+        Action(Player.Character.Humanoid, function(self)
+            if self:GetState() == Enum.HumanoidStateType.Jumping or self:GetState() == Enum.HumanoidStateType.Freefall then
+                Action(self.Parent.HumanoidRootPart, function(self)
+                    self.Velocity = Vector3.new(0, _G.JumpHeight, 0);
+                end)
+            end
+        end)
+    end
+end) 
+end
+function team(str)
+   game.Players.LocalPlayer.Team = game.Teams[str]
+end
+function hitboxall(int,int2,int3)
+   for i,v in pairs(game.Players:GetChildren()) do
+      v.Character.Head.Mesh.Scale = Vector3.new(int,int2,int3)
+   end
+character.Head.Mesh.Scale = Vector3.new(1,1,1)
+end
+function drophats()
+   local hats = game.Players.LocalPlayer.Character:GetChildren()
+   for i,v in pairs(hats) do
+      if v.ClassName == "Accessory" then
+          v.Parent = game.Workspace
+      end 
+end
+end
+function cmds()
+  loadstring(game:HttpGet('https://pastebin.com/raw/S4sFPrSp', true))() 
+end
+function commands()
+    cmds()
+end
